@@ -1,0 +1,76 @@
+import { Button, LineEdit } from "std-widgets.slint";
+MainWindow := Window {
+    VerticalLayout {
+        HorizontalLayout { 
+            Text {
+                text: "OBS-Studio IP:";
+                color: black;
+                vertical-alignment: center;
+                font-size: 16px;
+            }
+            LineEdit { 
+                width: 200px;
+                height: 30px;
+                text: "localhost";
+            }
+        }
+        HorizontalLayout { 
+            Text {
+                text: "OBS-Studio Port:";
+                color: black;
+                vertical-alignment: center;
+                font-size: 16px;
+            }
+            LineEdit { 
+                width: 200px;
+                height: 30px;
+                text: "4444";
+            }
+        }
+        HorizontalLayout { 
+            Text {
+                text: "OBS-Studio password:";
+                color: black;
+                vertical-alignment: center;
+                font-size: 16px;
+            }
+            LineEdit { 
+                width: 200px;
+                height: 30px;
+                text: "";
+                input-type: InputType.password;
+            }
+        }
+        
+        HorizontalLayout {
+            Text {
+                text: "WowCombatLog.txt:";
+                vertical-alignment: center;
+                font-size: 16px;
+            }
+            LineEdit { 
+                width: 200px;
+                height: 30px;
+             }           
+         }
+         HorizontalLayout { 
+            Text {
+                text: "OBS Status:";
+                font-size: 16px;
+            }
+            Rectangle {
+                min-width: 20px;
+                min-height: 20px;
+                max-width: 200px;
+                max-height: 20px;
+                background: green;
+                }
+          }
+          HorizontalLayout { 
+            Button { 
+                text: "Connect to OBS";
+             }
+           }
+    }
+    
+}
