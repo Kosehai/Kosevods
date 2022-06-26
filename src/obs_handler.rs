@@ -4,7 +4,7 @@ use tokio::time::{sleep, Duration};
 use std::env;
 
 #[tokio::main]
-async fn main() -> Result<()> {
+pub async fn recording_handler() -> Result<()> {
     let ip = "10.240.236.111";
     let port = 4444;
     let pass = env::var("OBSPASS").unwrap().to_string();
@@ -16,3 +16,11 @@ async fn main() -> Result<()> {
     client.recording().stop_recording().await?;
     Ok(())
 }
+
+pub async fn test_connection(ip: String, port: u16, pass: String) -> Result<()> {
+    let client = Client::connect(ip, port).await?;
+    client.login(Some(pass)).await?;
+    client.general().get_version().await?;
+    Ok(())
+}
+

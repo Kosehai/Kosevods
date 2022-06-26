@@ -1,5 +1,13 @@
 import { Button, LineEdit } from "std-widgets.slint";
-MainWindow := Window {
+export MainWindow := Window {
+    title: "Kosevods";
+    callback about_clicked <=> about.clicked;
+    callback connect_clicked <=> connect_button.clicked;
+    property <string> obs_ip <=> obs_ip.text;
+    property <string> obs_port <=> obs_port.text;
+    property <string> obs_pass <=> obs_pass.text;
+    property <bool> obs_connected: false;
+
     VerticalLayout {
         HorizontalLayout { 
             Text {
@@ -8,7 +16,7 @@ MainWindow := Window {
                 vertical-alignment: center;
                 font-size: 16px;
             }
-            LineEdit { 
+            obs_ip := LineEdit { 
                 width: 200px;
                 height: 30px;
                 text: "localhost";
@@ -21,7 +29,7 @@ MainWindow := Window {
                 vertical-alignment: center;
                 font-size: 16px;
             }
-            LineEdit { 
+            obs_port := LineEdit { 
                 width: 200px;
                 height: 30px;
                 text: "4444";
@@ -34,10 +42,10 @@ MainWindow := Window {
                 vertical-alignment: center;
                 font-size: 16px;
             }
-            LineEdit { 
+            obs_pass := LineEdit { 
                 width: 200px;
                 height: 30px;
-                text: "";
+                text: "obswebsocket";
                 input-type: InputType.password;
             }
         }
@@ -58,19 +66,60 @@ MainWindow := Window {
                 text: "OBS Status:";
                 font-size: 16px;
             }
-            Rectangle {
+            if obs_connected : Rectangle {
                 min-width: 20px;
                 min-height: 20px;
                 max-width: 200px;
                 max-height: 20px;
                 background: green;
-                }
+            }
+            if !obs_connected : Rectangle {
+                min-width: 20px;
+                min-height: 20px;
+                max-width: 200px;
+                max-height: 20px;
+                background: red;
+            }
           }
           HorizontalLayout { 
-            Button { 
+            connect_button := Button { 
                 text: "Connect to OBS";
+                max-height: 40px;
              }
            }
+        HorizontalLayout { 
+            Text {
+                text: "Auto Record Status: ";
+                font-size: 16px;
+            }
+            Rectangle {
+                min-width: 20px;
+                min-height: 20px;
+                max-width: 200px;
+                max-height: 20px;
+                background: red;
+            }
+         }
+         HorizontalLayout { 
+            Button {
+                text: "Start Recording";
+                max-height: 40px;
+            }
+        }
+
+        HorizontalLayout { 
+            Rectangle { 
+                min-height: 40px;
+                max-height: 100px;
+             }
+         }
+
+        HorizontalLayout { 
+            about := Button {
+                text: "About";
+                max-height: 40px;
+            }
+         }
     }
     
 }

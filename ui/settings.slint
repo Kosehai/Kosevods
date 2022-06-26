@@ -1,0 +1,33 @@
+import { StandardButton, LineEdit, CheckBox } from "std-widgets.slint";
+export settings := Window {
+    title: "Kosevods - Settings";
+    VerticalLayout {
+             HorizontalLayout {
+                max-width: 500px;
+                Text { 
+                    text: "What to record:";
+                    font-size: 16px;
+                    vertical-alignment: center;
+                 }
+                CheckBox { 
+                    text: "2v2";
+                }
+                CheckBox { 
+                    text: "3v3";
+                }
+                CheckBox {
+                    text: "Mythic+";
+                }
+              }
+              HorizontalLayout { 
+                StandardButton { 
+                    kind: ok;
+                }
+                StandardButton { 
+                    kind: cancel;
+                    clicked => { self.visible = false }
+                 }
+               }
+            
+     }
+}
