@@ -10,6 +10,8 @@ tokio = { version = "1", features = ["full"] }
 anyhow = "1.0"
 obws = "0.9.1"
 slint = "0.2.4"
+regex = "1"
+chrono = "0.4"
 
 [build-dependencies]
 slint-build = "0.2.4"
