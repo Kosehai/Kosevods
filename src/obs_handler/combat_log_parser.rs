@@ -1,5 +1,6 @@
 use std::fs::File;
 use std::io::{self, prelude::*, BufReader, SeekFrom};
+use std::path::Path;
 
 pub enum ParserAction {
     None,
@@ -16,14 +17,19 @@ pub struct Parser {
 }
 
 impl Parser {
-    pub fn new(logpath: &str) -> Result<Parser, io::Error> {
-        let f = match File::open(logpath){
+    pub fn new<P: AsRef<Path>>(logpath: P) -> Result<Parser, io::Error> {
+        let f = match File::open(&logpath){
+            Ok(x) => x,
+            Err(err) => return Err(err)
+        };
+        //Getting metadata of file so we can get the len of the file
+        let metadata = match f.metadata() {
             Ok(x) => x,
             Err(err) => return Err(err)
         };
         let mut reader = BufReader::new(f);
-        let pos: u64 = reader.seek(SeekFrom::Start(0)).unwrap();
-        let filename: String = logpath.to_owned();
+        let pos: u64 = metadata.len();
+        let filename: String = logpath.as_ref().to_string_lossy().to_string();
         Ok(Parser {
             filename: filename,
             reader: reader,

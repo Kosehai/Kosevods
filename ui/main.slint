@@ -3,10 +3,13 @@ export MainWindow := Window {
     title: "Kosevods";
     callback about_clicked <=> about.clicked;
     callback connect_clicked <=> connect_button.clicked;
+    callback record_clicked <=> record_button.clicked;
     property <string> obs_ip <=> obs_ip.text;
     property <string> obs_port <=> obs_port.text;
     property <string> obs_pass <=> obs_pass.text;
+    property <string> combatlog_path <=> combatlog.text;
     property <bool> obs_connected: false;
+    property <bool> recording: false;
 
     VerticalLayout {
         HorizontalLayout { 
@@ -56,9 +59,10 @@ export MainWindow := Window {
                 vertical-alignment: center;
                 font-size: 16px;
             }
-            LineEdit { 
+            combatlog := LineEdit { 
                 width: 200px;
                 height: 30px;
+                text: "C:\\Users\\mw\\Documents\\WoWCombatLog.txt";
              }           
          }
          HorizontalLayout { 
@@ -92,7 +96,14 @@ export MainWindow := Window {
                 text: "Auto Record Status: ";
                 font-size: 16px;
             }
-            Rectangle {
+            if recording : Rectangle {
+                min-width: 20px;
+                min-height: 20px;
+                max-width: 200px;
+                max-height: 20px;
+                background: green;
+            }
+            if !recording : Rectangle {
                 min-width: 20px;
                 min-height: 20px;
                 max-width: 200px;
@@ -101,7 +112,7 @@ export MainWindow := Window {
             }
          }
          HorizontalLayout { 
-            Button {
+            record_button := Button {
                 text: "Start Recording";
                 max-height: 40px;
             }
